@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Latest Posts";
+}
+<h2>Latest posts</h2>
+<div class="row">
+    <div class="col-md-9">
+        <div class="media post-list">
+            @foreach (SpectroWebApplication.Models.Post post in ViewBag.posts)
+            {
+                <div class="panel panel-default post-list__item">
+                    <!-- @Html.ActionLink(post.Revisions.Last().Title, "View", "Post", new { id = post.ID }, null) -->
+                    <div class="panel-heading post-list__item__title"><h4>@post.Revisions.Last().Title</h4></div>
+                    <div class="panel-body">
+                        <div class="post-list__item__author">by @post.Account.Email</div>
+                        <time class="post-list__item__date" datetime="@post.Revisions.First().CreatedAt">Posted @post.Revisions.First().CreatedAt.ToShortDateString()</time>
+                        <div>@Html.ActionLink("Continue reading", "View", "Post", new { id = post.ID }, null)</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="/">Latest posts</a></li>
+            <li><a href="/">Publish post</a></li>
+        </ul>
+     </div>
+</div>
