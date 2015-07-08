@@ -108,11 +108,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database.mdf" />
-    <Content Include="App_Data\Database_log.ldf">
-      <DependentUpon>Database.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\common.css" />
     <Content Include="packages.config" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Views\Account\SignUp.cshtml" />
@@ -145,8 +142,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DAL\CommonLayer.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\PostRevision.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -154,6 +151,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Post\" />
   </ItemGroup>
   <PropertyGroup>

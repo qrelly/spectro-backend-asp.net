@@ -11,8 +11,6 @@ namespace SpectroWebApplication.DAL
 
         public DbSet<Post> Posts { get; set; }
 
-        public DbSet<PostRevision> Revisions { get; set; }
-
         public DbSet<Account> Accounts { get; set; }
     }
 }

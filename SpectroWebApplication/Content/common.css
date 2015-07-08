@@ -1,0 +1,27 @@
+﻿.navbar {
+    border-radius: 0 0 4px 4px;
+    border-top: none;
+}
+
+.post-list__item {
+    margin: 3rem 0
+}
+
+.post-list__item__title {
+    font: 4rem Georgia, serif;
+    margin: 0;
+}
+
+.post-list__item__date {
+    font-size: 75%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.post-list__item__author {
+    font-style: italic;
+}
+
+.post-list__item__link a {
+    margin: 2rem 0;
+}

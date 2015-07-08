@@ -15,6 +15,10 @@ namespace SpectroWebApplication.Models
         public string Email { get; set; }
 
         [Required]
+        [StringLength(128)]
+        public string Name { get; set; }
+
+        [Required]
         [StringLength(64)]
         public string Password { get; set; }
 
