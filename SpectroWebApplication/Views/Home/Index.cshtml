@@ -6,16 +6,16 @@
     <li class="active"><a href="@Url.Action("Index", "Home")">Latest posts</a></li>
     <li><a href="@Url.Action("Create", "Post")">Publish post</a></li>
 </ul>
-<div class="media post-list">
+<div class="post-list">
     @foreach (SpectroWebApplication.Models.Post post in ViewBag.posts)
     {
         <div class="post-list__item">
-            <h3 class="post-list__item__title">@post.Title</h3>
+            <h4 class="post-list__item__title">@post.Title</h4>
             <time class="post-list__item__date">Posted @post.CreatedAt.ToShortDateString()</time>
             <div class="post-list__item__author">by <a href="mailto:@post.Account.Email">@post.Account.Name</a></div>
             <div class="post-list__item__link">
                         
-                <a href="@Url.Action("View", "Post", new { id = post.ID })" class="btn btn-default btn-large">
+                <a href="@Url.Action("Show", "Post", new { id = post.ID })" class="btn btn-default btn-large">
                     <span class="glyphicon glyphicon-share-alt"></span>
                     Continue reading
                 </a>
