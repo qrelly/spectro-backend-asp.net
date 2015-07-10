@@ -8,13 +8,11 @@ using System.Web.Mvc;
 
 namespace SpectroWebApplication.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : _BaseController
     {
         public ActionResult Index()
         {
-            SpectroContext database = new SpectroContext();
-
-            ViewBag.posts = database.Posts.ToList().Where(post => post.IsPublic == true);
+            ViewBag.posts = this.context.Posts.ToList().Where(post => post.IsPublic == true);
 
             return View();
         }

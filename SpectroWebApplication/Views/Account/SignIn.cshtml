@@ -2,6 +2,24 @@
 @{
     ViewBag.Title = "Login";
 }
-<div class="row">
-    <h2>Login</h2>
-</div>
+<h1>Login</h1>
+<hr />
+<form class="form form--login" method="post" action="/signin">
+    <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        <input type="text" class="form-control" placeholder="Email" name="email" value="@ViewBag.email" />
+    </div>
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+        <input type="password" class="form-control" placeholder="Password" name="password" value="@ViewBag.password" />
+    </div>
+    <br />
+    <div class="input-group">
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </div>
+    @if (ViewBag.error != null) {
+        <br />
+        <div class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span> @ViewBag.error</div>
+    }
+</form>

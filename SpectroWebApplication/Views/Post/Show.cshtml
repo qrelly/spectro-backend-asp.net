@@ -2,7 +2,12 @@
 @{
     ViewBag.Title = "Post";
 }
-<article>
-    <h1>@post.Title</h1>
+<p><a href="/" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Back to list</a></p>
+<article class="post">
+    <h1 class="post__title">@ViewBag.post.Title</h1>
+    <time class="post-list__item__date">Posted @ViewBag.post.CreatedAt.ToShortDateString()</time>
+    <div class="post-list__item__author">by <span class="glyphicon glyphicon-user"></span> <a href="mailto:@ViewBag.post.Account.Email">@ViewBag.post.Account.Name</a></div>
+    <hr />
+    <p>@ViewBag.post.Content</p>
 </article>
 

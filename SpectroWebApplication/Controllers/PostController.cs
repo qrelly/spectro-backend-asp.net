@@ -7,15 +7,11 @@ using System.Web.Mvc;
 
 namespace SpectroWebApplication.Controllers
 {
-    public class PostController : Controller
+    public class PostController : _BaseController
     {
-        //
-        // GET: /Post/:id
         public ActionResult Show(int PostID = 1)
         {
-            SpectroContext context = new SpectroContext();
-
-            ViewBag.post = context.Posts.Single(post => post.ID == PostID);
+            ViewBag.post = this.context.Posts.Single(post => post.ID == PostID);
             
             return View();
         }

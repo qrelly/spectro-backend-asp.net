@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SpectroWebApplication.DAL;
+using SpectroWebApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,10 +28,16 @@ namespace SpectroWebApplication
             );
 
             routes.MapRoute(
+                name: "Sign out",
+                url: "signout",
+                defaults: new { controller = "Account", action = "SignOut" }
+            );
+
+            routes.MapRoute(
                 name: "Post View",
                 url: "post/{id}",
-                defaults: new { controller = "Post", action = "Show", id = UrlParameter.Optional },
-                constraints: new { id = @"\d+" }
+                defaults: new { controller = "Post", action = "Show", id = UrlParameter.Optional }//,
+                //constraints: new { id = @"\d+" }
             );
 
             routes.MapRoute(
