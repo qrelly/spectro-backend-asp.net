@@ -41,6 +41,7 @@
     font: 2rem Georgia, serif;
 }
 
-.form--login {
+.form--signin,
+.form--signup {
     max-width: 420px;
 }

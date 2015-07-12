@@ -8,7 +8,7 @@ namespace SpectroWebApplication.Models
 
     public partial class Post
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public bool IsPublic { get; set; }

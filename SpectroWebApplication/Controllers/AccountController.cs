@@ -60,6 +60,43 @@ namespace SpectroWebApplication.Controllers
         {
             if (user != null) return RedirectToAction("Index", "Home");
 
+            ViewBag.user = user;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(string _email, string _name, string _password)
+        {
+            if (user != null) return RedirectToAction("Index", "Home");
+
+            var email = Request.Form["email"];
+            var name = Request.Form["name"];
+            var password = Request.Form["password"];
+
+            password = Crypto.SHA256(password).ToLower();
+
+            try
+            {
+                context.Accounts.ToList().Single(a => a.Email == email);
+            }
+            catch (Exception e)
+            {
+                var account = new Account
+                {
+                    Email = email,
+                    Name = name,
+                    Password = password
+                };
+
+                context.Accounts.Add(account);
+                context.SaveChanges();
+
+                return RedirectToAction("SignIn", "Account");
+            }
+
+            ViewBag.error = "Email already taken";
+
             return View();
         }
 

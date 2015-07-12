@@ -7,7 +7,7 @@ namespace SpectroWebApplication.Models
 
     public partial class Account
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Required]

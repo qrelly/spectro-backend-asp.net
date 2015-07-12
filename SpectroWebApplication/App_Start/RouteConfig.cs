@@ -40,6 +40,18 @@ namespace SpectroWebApplication
             );
 
             routes.MapRoute(
+                name: "Post Edit",
+                url: "post/{id}/edit",
+                defaults: new { controller = "Post", action = "Edit", id = "" }
+            );
+
+            routes.MapRoute(
+                name: "Post Remove",
+                url: "post/{id}/remove",
+                defaults: new { controller = "Post", action = "Remove", id = "" }
+            );
+
+            routes.MapRoute(
                 name: "Post View",
                 url: "post/{id}",
                 defaults: new { controller = "Post", action = "Show", id = "" }
