@@ -1,4 +1,5 @@
 ﻿using SpectroWebApplication.DAL;
+using SpectroWebApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,27 @@ namespace SpectroWebApplication.Controllers
             ViewBag.user = user;
 
             return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public object Create (string title, string content)
+        {
+            if (user == null) return RedirectToAction("Index", "Home");
+
+            var post = new Post {
+                Title = Request.Form["title"],
+                Content = Request.Form["content"],
+                IsPublic = true,
+                CreatedAt = DateTime.Now,
+                Account = user
+            };
+
+            context.Posts.Add(post);
+            context.SaveChanges();
+
+            //return Url.Action("Post", "Show", new { id = post.ID });
+            return Url.Action("Index", "Home");
         }
 	}
 }

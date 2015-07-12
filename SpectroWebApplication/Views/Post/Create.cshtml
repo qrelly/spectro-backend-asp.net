@@ -1,8 +1,45 @@
 ﻿
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Write a post";
 }
-<h1>Write a post</h1>
+<h1 data-scheme="/Content/TitleScheme.xml" data-property="title"></h1>
 <hr />
-<input type="text" class="form-control input-lg" placeholder="Title" autofocus />
+<div class="post__content">
+    <article data-scheme="/Content/ContentScheme.xml" data-property="content"></article>
+</div>
+<hr />
+<div class="post__controls">
+    <button class="btn btn-primary" data-action="publish">Publish</button>
+</div>
+<script>
+    $(function () {
 
+        // Build schemas
+        $('[data-scheme]').each(function () {
+            var $element = $(this),
+                scheme = $element.attr('data-scheme');
+
+            $.get(scheme, function (response) {
+                $element.spectro('enable', {
+                    scheme: response
+                });
+            });
+        });
+
+        // Publish post
+        $('[data-action="publish"]').click(function () {
+            var $button = $(this);
+
+            $button.attr('disable', true);
+
+            $('[data-scheme]').spectro('disable');
+
+            var title = $('[data-property="title"]').text(),
+                content = $('[data-property="content"]').html();
+
+            $.post('/publish', { title: title, content: content }, function (response) {
+                window.location = response;
+            });
+        });
+    });
+</script>

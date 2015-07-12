@@ -1,4 +1,8 @@
-﻿.navbar {
+﻿.container {
+    max-width: 720px;
+}
+
+.navbar {
     border-radius: 0 0 4px 4px;
     border-top: none;
 }
@@ -31,6 +35,10 @@
 
 .post-list__item__link a {
     margin: 2rem 0;
+}
+
+.post__content {
+    font: 2rem Georgia, serif;
 }
 
 .form--login {

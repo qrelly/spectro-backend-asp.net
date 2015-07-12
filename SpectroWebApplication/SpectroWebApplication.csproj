@@ -113,8 +113,13 @@
     </Content>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\common.css" />
+    <Content Include="Content\ContentScheme.xml" />
+    <Content Include="Content\TitleScheme.xml" />
     <Content Include="packages.config" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\spectro.contents.js" />
+    <Content Include="Scripts\spectro.js" />
+    <Content Include="Scripts\spectro.wysiwyg.js" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Post\Show.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
@@ -127,7 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
