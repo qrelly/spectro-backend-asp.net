@@ -18,20 +18,24 @@
                     </button>
                     @Html.ActionLink("Spectro", "Index", "Home", null, new { @class = "navbar-brand" })</div>
                 <div class="navbar-collapse collapse">
-                    @if (ViewBag.user != null)
+                    @if (Session["Account"] != null)
                     {
                         <ul class="nav navbar-nav">
                             <li>@Html.ActionLink("Write a post", "Create", "Post")</li>
                         </ul>
                     }
                     <ul class="nav navbar-nav navbar-right">
-                        @if (ViewBag.user == null)
+                        @if (Session["Account"] == null)
                         {
                             <li>@Html.ActionLink("Sign in", "SignIn", "Account")</li>
                             <li>@Html.ActionLink("Sign up", "SignUp", "Account")</li>
                         }
                         else
                         {
+                            <li class="navbar-text">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @((Session["Account"] as SpectroWebApplication.Models.Account).Name)
+                            </li>
                             <li>@Html.ActionLink("Sign out", "SignOut", "Account")</li>
                         }
                     </ul>

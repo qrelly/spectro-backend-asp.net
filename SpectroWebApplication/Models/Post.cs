@@ -17,7 +17,7 @@ namespace SpectroWebApplication.Models
         [StringLength(256)]
         public string Title { get; set; }
 
-        [Column(TypeName = "ntext")]
+        [MaxLength]
         public string Content { get; set; }
 
         public DateTime CreatedAt { get; set; }

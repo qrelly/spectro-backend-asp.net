@@ -20,16 +20,7 @@ namespace SpectroWebApplication.Controllers
         
         public Account user {
             get {
-                try
-                {
-                    var account = this.context.Accounts.ToList().Single(a => a.ID == (int)Session["AccountID"]);
-
-                    return account;
-                }
-                catch
-                {
-                    return null;
-                }
+                return Session["Account"] as Account;
             }
         }
 	}

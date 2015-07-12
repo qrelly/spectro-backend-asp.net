@@ -1,9 +1,9 @@
-﻿
+﻿@model IEnumerable<SpectroWebApplication.Models.Post>
 @{
     ViewBag.Title = "Latest Posts";
 }
 <div class="post-list">
-    @foreach (SpectroWebApplication.Models.Post post in ViewBag.posts)
+    @foreach (var post in Model)
     {
         <div class="post-list__item">
             <h4 class="post-list__item__title">@post.Title</h4>
@@ -13,7 +13,7 @@
                 <a href="@Url.Action("Show", "Post", new { id = post.ID })" class="btn btn-default btn-large">
                     <span class="glyphicon glyphicon-share-alt"></span> Continue reading
                 </a>
-                @if (ViewBag.user != null && post.Account.ID == ViewBag.user.ID)
+                @if (Session["Account"] != null && (Session["Account"] as SpectroWebApplication.Models.Account).ID == post.Account.ID)
                 {
                     <a href="@Url.Action("Edit", "Post", new { id = post.ID })" class="btn btn-default btn-large">
                         <span class="glyphicon glyphicon-pencil"></span>

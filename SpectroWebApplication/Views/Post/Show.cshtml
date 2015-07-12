@@ -1,26 +1,26 @@
-﻿
+﻿@model SpectroWebApplication.Models.Post
 @{
     ViewBag.Title = "Post";
 }
 <p>
     <a href="/" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Back to list</a>
-    @if (ViewBag.user != null && ViewBag.user == ViewBag.post.Account)
+    @if (Session["Account"] != null && (Session["Account"] as SpectroWebApplication.Models.Account).ID == Model.Account.ID)
 {
-        <a href="@Url.Action("Edit", "Post", new { id = ViewBag.post.ID })" class="btn btn-default btn-large">
+        <a href="@Url.Action("Edit", "Post", new { id = Model.ID })" class="btn btn-default btn-large">
             <span class="glyphicon glyphicon-pencil"></span> Edit
         </a>
-        <a href="@Url.Action("Remove", "Post", new { id = ViewBag.post.ID })" class="btn btn-danger btn-large pull-right" data-action="remove">
+        <a href="@Url.Action("Remove", "Post", new { id = Model.ID })" class="btn btn-danger btn-large pull-right" data-action="remove">
             <span class="glyphicon glyphicon-trash"></span> Delete
         </a>
     }
 </p>
 <article class="post">
-    <h1 class="post__title">@ViewBag.post.Title</h1>
-    <time class="post-list__item__date">Posted @ViewBag.post.CreatedAt.ToShortDateString()</time>
-    <div class="post-list__item__author">by <span class="glyphicon glyphicon-user"></span> <a href="mailto:@ViewBag.post.Account.Email">@ViewBag.post.Account.Name</a></div>
+    <h1 class="post__title">@Model.Title</h1>
+    <time class="post-list__item__date">Posted @Model.CreatedAt.ToShortDateString()</time>
+    <div class="post-list__item__author">by <span class="glyphicon glyphicon-user"></span> <a href="mailto:@Model.Account.Email">@Model.Account.Name</a></div>
     <hr />
     <div class="post__content">
-        @Html.Raw(ViewBag.post.Content)
+        @Html.Raw(Model.Content)
     </div>
 </article>
 <script>

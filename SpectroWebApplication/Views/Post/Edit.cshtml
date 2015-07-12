@@ -1,10 +1,18 @@
-﻿@{
+﻿@model SpectroWebApplication.Models.Post
+@{
     ViewBag.Title = "Edit post";
 }
-<h1 data-scheme="/Content/TitleScheme.xml" data-property="title">@ViewBag.post.Title</h1>
+<p>
+    <a href="/" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Back to list</a>
+    <a href="@Url.Action("Show", "Post", new { id = Model.ID })" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View post</a>
+    <a href="@Url.Action("Remove", "Post", new { id = Model.ID })" class="btn btn-danger btn-large pull-right" data-action="remove">
+        <span class="glyphicon glyphicon-trash"></span> Delete
+    </a>
+</p>
+<h1 data-scheme="/Content/TitleScheme.xml" data-property="title">@Model.Title</h1>
 <hr />
 <div class="post__content">
-    <article data-scheme="/Content/ContentScheme.xml" data-property="content">@Html.Raw(ViewBag.post.Content)</article>
+    <article data-scheme="/Content/ContentScheme.xml" data-property="content">@Html.Raw(Model.Content)</article>
 </div>
 <hr />
 <div class="post__controls">
@@ -36,9 +44,19 @@
             var title = $('[data-property="title"]').text(),
                 content = $('[data-property="content"]').html();
 
-            $.post('@Url.Action("Edit", "Post", new { id = @ViewBag.post.ID })', { title: title, content: content }, function (response) {
-                window.location = response;
+            $.post('@Url.Action("Edit", "Post", new { id = @Model.ID })', { title: title, content: content }, function (response) {
+                if (response.status == 'success') {
+                    window.location = response.redirect;
+                } else {
+                    alert(response.message);
+                }
             });
+        });
+
+        $('[data-action="remove"]').click(function (event) {
+            if (!confirm('Are you sure?')) {
+                event.preventDefault();
+            }
         });
     });
 </script>

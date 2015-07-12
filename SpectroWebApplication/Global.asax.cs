@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using SpectroWebApplication.Migrations;
+using SpectroWebApplication.DAL;
 
 namespace SpectroWebApplication
 {
@@ -16,16 +19,8 @@ namespace SpectroWebApplication
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<SpectroContext, Configuration>());
         }
-
-        /*protected void Session_Start(object sender, EventArgs e)
-        {
-            Session["init"] = 0;
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-
-        }*/
     }
 }

@@ -12,10 +12,13 @@ namespace SpectroWebApplication.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.user = user;
-            ViewBag.posts = this.context.Posts.ToList().OrderBy(o => o.CreatedAt).Reverse().Where(post => post.IsPublic == true);
+            var posts = this.context
+                            .Posts
+                            .Where(post => post.IsPublic)
+                            .OrderByDescending(o => o.CreatedAt)
+                            .ToList();
 
-            return View();
+            return View(posts);
         }
     }
 }

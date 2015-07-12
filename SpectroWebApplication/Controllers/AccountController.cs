@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace SpectroWebApplication.Controllers
 {
@@ -15,72 +16,55 @@ namespace SpectroWebApplication.Controllers
     {
         public ActionResult SignIn()
         {
-            if (user != null) return RedirectToAction("Index", "Home");
-
-            ViewBag.email = Request.Form["email"] ?? "";
-            ViewBag.password = Request.Form["password"] ?? "";
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult SignIn(object data)
+        public ActionResult SignIn(string email, string password)
         {
             if (user != null) return RedirectToAction("Index", "Home");
 
-            ViewBag.user = user;
-
             var context = new SpectroContext();
-            string email = Request.Form["email"];
-            string password = Request.Form["password"];
 
             ViewBag.email = email;
             ViewBag.password = password;
 
             password = Crypto.SHA256(password).ToLower();
-            Account account;
 
-            try
+            Account account = context.Accounts.First(a => a.Email == email);
+
+            if (account.Password == password)
             {
-                account = context.Accounts.Single(a => a.Email == email && a.Password == password);
-
-                Session["AccountID"] = account.ID;
+                FormsAuthentication.SetAuthCookie(account.Email, createPersistentCookie: true);
+                Session["Account"] = account;
 
                 return RedirectToAction("Index", "Home");
             }
-            catch (InvalidOperationException e)
+            else
             {
-                ViewBag.error = "Invalid email / password combination";  
+                ViewBag.error = "Invalid email / password combination";
             }
-            
+
             return View();
         }
 
         public ActionResult SignUp()
         {
             if (user != null) return RedirectToAction("Index", "Home");
-
-            ViewBag.user = user;
-
+            
             return View();
         }
 
         [HttpPost]
-        public ActionResult SignUp(string _email, string _name, string _password)
+        public ActionResult SignUp (string email, string name, string password)
         {
             if (user != null) return RedirectToAction("Index", "Home");
 
-            var email = Request.Form["email"];
-            var name = Request.Form["name"];
-            var password = Request.Form["password"];
-
             password = Crypto.SHA256(password).ToLower();
 
-            try
-            {
-                context.Accounts.ToList().Single(a => a.Email == email);
-            }
-            catch (Exception e)
+            var existedAccount = context.Accounts.FirstOrDefault(a => a.Email == email);
+
+            if (existedAccount == null)
             {
                 var account = new Account
                 {
@@ -94,17 +78,21 @@ namespace SpectroWebApplication.Controllers
 
                 return RedirectToAction("SignIn", "Account");
             }
+            else
+            {
+                ViewBag.error = "Email already taken";
 
-            ViewBag.error = "Email already taken";
-
-            return View();
+                return View();
+            }
         }
 
         public ActionResult SignOut()
         {
-            if (user != null) Session.RemoveAll();
-
-            ViewBag.user = user;
+            if (user != null)
+            {
+                FormsAuthentication.SignOut();
+                Session.Abandon();
+            }
 
             return RedirectToAction("Index", "Home");;
         }

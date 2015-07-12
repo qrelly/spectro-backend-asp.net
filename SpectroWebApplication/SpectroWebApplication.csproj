@@ -152,6 +152,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DAL\CommonLayer.cs" />
+    <Compile Include="Migrations\201507122031013_ntextToVarcharChange.cs" />
+    <Compile Include="Migrations\201507122031013_ntextToVarcharChange.Designer.cs">
+      <DependentUpon>201507122031013_ntextToVarcharChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Account.cs" />
@@ -162,6 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201507122031013_ntextToVarcharChange.resx">
+      <DependentUpon>201507122031013_ntextToVarcharChange.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

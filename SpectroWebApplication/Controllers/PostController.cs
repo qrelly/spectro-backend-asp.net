@@ -4,27 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace SpectroWebApplication.Controllers
 {
     public class PostController : _BaseController
     {
-        public ActionResult Show (string id)
+        public ActionResult Show (int id)
         {
-            ViewBag.user = user;
+            var post = this.context.Posts.First(p => p.ID == id);
 
-            int PostID = int.Parse(id);
-
-            ViewBag.post = this.context.Posts.Single(post => post.ID == PostID);
-            
-            return View();
+            return View(post);
         }
 
         public ActionResult Create()
         {
-            ViewBag.user = user;
-
             return View();
         }
 
@@ -35,8 +30,8 @@ namespace SpectroWebApplication.Controllers
             if (user == null) return RedirectToAction("Index", "Home");
 
             var post = new Post {
-                Title = Request.Form["title"],
-                Content = Request.Form["content"],
+                Title = title,
+                Content = content,
                 IsPublic = true,
                 CreatedAt = DateTime.Now,
                 Account = user
@@ -48,54 +43,43 @@ namespace SpectroWebApplication.Controllers
             return Url.Action("Post", "Show", new { id = post.ID });
         }
 
-        public ActionResult Edit(string id)
+        public ActionResult Edit (int id)
         {
-            var PostID = int.Parse(id);
+            var post = context.Posts.First(p => p.ID == id);
 
-            try
-            {
-                ViewBag.post = context.Posts.ToList().Single(p => p.ID == PostID);
-
-                return View();
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return View(post);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public string Edit(string id, object preventError)
+        public JsonResult Edit (int id, string title, string content)
         {
-            var PostID = int.Parse(id);
+            var post = context.Posts.First(p => p.ID == id);
 
-            try {
-                var post = context.Posts.ToList().Single(p => p.ID == PostID);
+            if (post.Account.ID == user.ID)
+            {
+                post.Title = title;
+                post.Content = content;
 
-                if (post.Account == user)
-                {
-                    post.Title = Request.Form["title"];
-                    post.Content = Request.Form["content"];
+                context.SaveChanges();
 
-                    context.SaveChanges();
-
-                    return Url.Action("Show", "Post", new { id = PostID });
-                }
-
-                return "/";
+                return Json(new {
+                    status = "success",
+                    redirect = Url.Action("Edit", "Post", new { id = post.ID })
+                });
             }
-            catch (Exception e) {
-                return "/";
-            }
+
+            return Json(new {
+                status = "failure",
+                message = "Access denied"
+            });
         }
 
-        public ActionResult Remove(string id)
+        public ActionResult Remove (int id)
         {
             if (user == null) return RedirectToAction("Index", "Home");
 
-            var PostID = int.Parse(id);
-            var post = context.Posts.ToList().Single(p => p.ID == PostID);
+            var post = context.Posts.First(p => p.ID == id);
 
             if (user != post.Account)
             {
