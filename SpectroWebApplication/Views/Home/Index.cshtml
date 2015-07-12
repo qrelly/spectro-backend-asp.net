@@ -11,7 +11,15 @@
             <div class="post-list__item__author">by <span class="glyphicon glyphicon-user"></span> <a href="mailto:@post.Account.Email">@post.Account.Name</a></div>
             <div class="post-list__item__link">
                 <a href="@Url.Action("Show", "Post", new { id = post.ID })" class="btn btn-default btn-large">
-                    <span class="glyphicon glyphicon-share-alt"></span> Continue reading</a>
+                    <span class="glyphicon glyphicon-share-alt"></span> Continue reading
+                </a>
+                @if (ViewBag.user != null && post.Account.ID == ViewBag.user.ID)
+                {
+                    <a href="@Url.Action("Edit", "Post", new { id = post.ID })" class="btn btn-default btn-large">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Edit
+                    </a>
+                }
             </div>
         </div>
         <hr />

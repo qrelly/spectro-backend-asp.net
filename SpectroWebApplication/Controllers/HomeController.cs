@@ -12,7 +12,8 @@ namespace SpectroWebApplication.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.posts = this.context.Posts.ToList().Where(post => post.IsPublic == true);
+            ViewBag.user = user;
+            ViewBag.posts = this.context.Posts.ToList().OrderBy(o => o.CreatedAt).Reverse().Where(post => post.IsPublic == true);
 
             return View();
         }

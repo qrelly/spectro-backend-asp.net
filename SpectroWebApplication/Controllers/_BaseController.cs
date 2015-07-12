@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.SessionState;
 
 namespace SpectroWebApplication.Controllers
 {
@@ -15,17 +16,15 @@ namespace SpectroWebApplication.Controllers
         public _BaseController()
         {
             this.context = new SpectroContext();
-
-            var test = Session["AccountID"];
-
-            ViewBag.user = this.user ?? null;
         }
-
+        
         public Account user {
             get {
                 try
                 {
-                    return this.context.Accounts.Single(a => a.ID == (int) Session["AccountID"]);
+                    var account = this.context.Accounts.ToList().Single(a => a.ID == (int)Session["AccountID"]);
+
+                    return account;
                 }
                 catch
                 {

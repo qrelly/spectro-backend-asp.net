@@ -18,7 +18,12 @@ namespace SpectroWebApplication
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        /*protected void Session_OnStart()
+        /*protected void Session_Start(object sender, EventArgs e)
+        {
+            Session["init"] = 0;
+        }
+
+        protected void Session_End(object sender, EventArgs e)
         {
 
         }*/

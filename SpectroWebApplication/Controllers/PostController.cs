@@ -9,8 +9,12 @@ namespace SpectroWebApplication.Controllers
 {
     public class PostController : _BaseController
     {
-        public ActionResult Show(int PostID = 1)
+        public ActionResult Show (string id)
         {
+            ViewBag.user = user;
+
+            int PostID = int.Parse(id);
+
             ViewBag.post = this.context.Posts.Single(post => post.ID == PostID);
             
             return View();
@@ -18,6 +22,8 @@ namespace SpectroWebApplication.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.user = user;
+
             return View();
         }
 	}

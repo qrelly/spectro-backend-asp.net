@@ -28,6 +28,8 @@ namespace SpectroWebApplication.Controllers
         {
             if (user != null) return RedirectToAction("Index", "Home");
 
+            ViewBag.user = user;
+
             var context = new SpectroContext();
             string email = Request.Form["email"];
             string password = Request.Form["password"];
@@ -42,17 +44,15 @@ namespace SpectroWebApplication.Controllers
             {
                 account = context.Accounts.Single(a => a.Email == email && a.Password == password);
 
-                //Session["AccountID"] = account.ID;
-                Session.Add("AccountID", account.ID);
+                Session["AccountID"] = account.ID;
 
                 return RedirectToAction("Index", "Home");
             }
             catch (InvalidOperationException e)
             {
-                ViewBag.error = "Invalid email / password combination";
+                ViewBag.error = "Invalid email / password combination";  
             }
-
-
+            
             return View();
         }
 
@@ -66,6 +66,8 @@ namespace SpectroWebApplication.Controllers
         public ActionResult SignOut()
         {
             if (user != null) Session.RemoveAll();
+
+            ViewBag.user = user;
 
             return RedirectToAction("Index", "Home");;
         }

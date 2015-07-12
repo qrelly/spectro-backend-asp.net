@@ -36,8 +36,13 @@ namespace SpectroWebApplication
             routes.MapRoute(
                 name: "Post View",
                 url: "post/{id}",
-                defaults: new { controller = "Post", action = "Show", id = UrlParameter.Optional }//,
-                //constraints: new { id = @"\d+" }
+                defaults: new { controller = "Post", action = "Show", id = "" }
+            );
+
+            routes.MapRoute(
+                name: "Create Post",
+                url: "publish",
+                defaults: new { controller = "Post", action = "Create" }
             );
 
             routes.MapRoute(
