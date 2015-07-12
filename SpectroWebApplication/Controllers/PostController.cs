@@ -45,13 +45,49 @@ namespace SpectroWebApplication.Controllers
             context.Posts.Add(post);
             context.SaveChanges();
 
-            //return Url.Action("Post", "Show", new { id = post.ID });
-            return Url.Action("Index", "Home");
+            return Url.Action("Post", "Show", new { id = post.ID });
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(string id)
         {
-            return View();
+            var PostID = int.Parse(id);
+
+            try
+            {
+                ViewBag.post = context.Posts.ToList().Single(p => p.ID == PostID);
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public string Edit(string id, object preventError)
+        {
+            var PostID = int.Parse(id);
+
+            try {
+                var post = context.Posts.ToList().Single(p => p.ID == PostID);
+
+                if (post.Account == user)
+                {
+                    post.Title = Request.Form["title"];
+                    post.Content = Request.Form["content"];
+
+                    context.SaveChanges();
+
+                    return Url.Action("Show", "Post", new { id = PostID });
+                }
+
+                return "/";
+            }
+            catch (Exception e) {
+                return "/";
+            }
         }
 
         public ActionResult Remove(string id)

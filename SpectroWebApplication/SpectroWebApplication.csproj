@@ -119,6 +119,7 @@
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Post\Show.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
